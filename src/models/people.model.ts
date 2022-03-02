@@ -26,6 +26,12 @@ export class People extends Entity {
     type: 'number',
     required: true,
   })
+  age: number;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
   height: number;
 
   @hasMany(() => Weight)
