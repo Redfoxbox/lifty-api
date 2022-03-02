@@ -3,3 +3,4 @@ export * from './People.controller';
 export * from './ping.controller';
 export * from './weight.controller';
 
+export * from './user.controller';
