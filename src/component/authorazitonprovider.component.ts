@@ -15,6 +15,7 @@ export class MyAuthorizationProvider implements Provider<Authorizer> {
     authorizationCtx: AuthorizationContext,
     metadata: AuthorizationMetadata,
   ) {
+    console.log(authorizationCtx);
     const clientRole = authorizationCtx.principals[0].role;
     console.log(authorizationCtx);
 

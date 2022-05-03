@@ -1,6 +1,5 @@
-import {AuthorizationComponent, AuthorizationDecision, AuthorizationOptions, AuthorizationTags} from '@loopback/authorization';
+import {AuthorizationDecision, AuthorizationOptions} from '@loopback/authorization';
 import {ApplicationConfig, LiftyApiApplication} from './application';
-import {MyAuthorizationProvider} from './component/authorazitonprovider.component';
 
 export * from './application';
 
@@ -14,12 +13,12 @@ export async function main(options: ApplicationConfig = {}) {
   await app.boot();
   await app.start();
 
-  const binding = app.component(AuthorizationComponent);
-  app.configure(binding.key).to(options);
-  app
-    .bind('authorizationProviders.my-authorizer-provider')
-    .toProvider(MyAuthorizationProvider)
-    .tag(AuthorizationTags.AUTHORIZER);
+  //const binding = app.component(AuthorizationComponent);
+  //app.configure(binding.key).to(options);
+  // app
+  //  .bind('authorizationProviders.my-authorizer-provider')
+  //  .toProvider(MyAuthorizationProvider)
+  //  .tag(AuthorizationTags.AUTHORIZER);
 
 
   const url = app.restServer.url;

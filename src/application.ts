@@ -13,7 +13,9 @@ import {
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {LocalDataSource} from './datasources';
+import {UserCredentialsRepository, UserRepository} from './repositories';
 import {MySequence} from './sequence';
+import {CostumUserService} from './services/user.service';
 
 
 export {ApplicationConfig};
@@ -52,9 +54,23 @@ export class LiftyApiApplication extends BootMixin(
     // Mount authentication system
     this.component(AuthenticationComponent);
     // Mount jwt component
+    //this.component(JWTAuthenticationComponent);
+    // Bind datasource
+    //this.dataSource(LocalDataSource, UserServiceBindings.DATASOURCE_NAME);
+
+
     this.component(JWTAuthenticationComponent);
     // Bind datasource
     this.dataSource(LocalDataSource, UserServiceBindings.DATASOURCE_NAME);
+    // Bind user service
+    this.bind(UserServiceBindings.USER_SERVICE).toClass(CostumUserService),
+      // Bind user and credentials repository
+      this.bind(UserServiceBindings.USER_REPOSITORY).toClass(
+        UserRepository,
+      ),
+      this.bind(UserServiceBindings.USER_CREDENTIALS_REPOSITORY).toClass(
+        UserCredentialsRepository,
+      )
     // ------------- End of snippet -------------
   }
 }
