@@ -43,7 +43,6 @@ export class PeopleController {
   ): Promise<People> {
     return this.PeopleRepository.create(People);
   }
-  @authorize({allowedRoles: ['ADMIN']})
   @get('/people/count')
   @response(200, {
     description: 'People model count',
@@ -73,6 +72,7 @@ export class PeopleController {
     return this.PeopleRepository.find(filter);
   }
 
+  @authorize({allowedRoles: ['ADMIN']})
   @patch('/people')
   @response(200, {
     description: 'People PATCH success count',
@@ -126,7 +126,7 @@ export class PeopleController {
   ): Promise<void> {
     await this.PeopleRepository.updateById(id, People);
   }
-
+  @authorize({allowedRoles: ['ADMIN']})
   @put('/people/{id}')
   @response(204, {
     description: 'People PUT success',
@@ -137,7 +137,7 @@ export class PeopleController {
   ): Promise<void> {
     await this.PeopleRepository.replaceById(id, People);
   }
-
+  @authorize({allowedRoles: ['ADMIN']})
   @del('/people/{id}')
   @response(204, {
     description: 'People DELETE success',
