@@ -1,12 +1,6 @@
-// Copyright IBM Corp. 2020. All Rights Reserved.
-// Node module: @loopback/example-todo-jwt
-// This file is licensed under the MIT License.
-// License text available at https://opensource.org/licenses/MIT
-
-import {authenticate, TokenService} from '@loopback/authentication';
+import {authenticate} from '@loopback/authentication';
 import {
   Credentials,
-  TokenServiceBindings,
   UserServiceBindings
 } from '@loopback/authentication-jwt';
 import {inject} from '@loopback/core';
@@ -23,8 +17,10 @@ import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
 import {genSalt, hash} from 'bcryptjs';
 import _ from 'lodash';
 import isEmail from 'validator/lib/isEmail';
+import {TokenServiceBindings} from '../keys';
 import {User} from '../models';
 import {UserRepository} from '../repositories/user.repository';
+import {JWTService} from '../services/jwt.service';
 import {CostumUserService} from '../services/user.service';
 
 @model()
@@ -67,7 +63,7 @@ export const CredentialsRequestBody = {
 export class UserController {
   constructor(
     @inject(TokenServiceBindings.TOKEN_SERVICE)
-    public jwtService: TokenService,
+    public jwtService: JWTService,
     @inject(UserServiceBindings.USER_SERVICE)
     public userService: CostumUserService,
     @inject(SecurityBindings.USER, {optional: true})

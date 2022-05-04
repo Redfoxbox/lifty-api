@@ -46,7 +46,6 @@ export class CostumUserService implements UserService<User, Credentials> {
   }
 
   convertToUserProfile(user: User): UserProfile {
-    console.log("this is it");
     return {
       [securityId]: user.id.toString(),
       id: user.id,

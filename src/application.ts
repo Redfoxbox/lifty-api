@@ -1,6 +1,6 @@
 import {AuthenticationComponent} from '@loopback/authentication';
 import {
-  JWTAuthenticationComponent, UserServiceBindings
+  JWTAuthenticationComponent, TokenServiceBindings, UserServiceBindings
 } from '@loopback/authentication-jwt';
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
@@ -15,8 +15,8 @@ import path from 'path';
 import {LocalDataSource} from './datasources';
 import {UserCredentialsRepository, UserRepository} from './repositories';
 import {MySequence} from './sequence';
+import {JWTService} from './services/jwt.service';
 import {CostumUserService} from './services/user.service';
-
 
 export {ApplicationConfig};
 
@@ -70,7 +70,8 @@ export class LiftyApiApplication extends BootMixin(
       ),
       this.bind(UserServiceBindings.USER_CREDENTIALS_REPOSITORY).toClass(
         UserCredentialsRepository,
-      )
+      ),
+      this.bind(TokenServiceBindings.TOKEN_SERVICE).toClass(JWTService)
     // ------------- End of snippet -------------
   }
 }
