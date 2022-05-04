@@ -1,4 +1,5 @@
 import {authenticate} from '@loopback/authentication';
+import {authorize} from '@loopback/authorization';
 import {
   Count,
   CountSchema,
@@ -42,7 +43,7 @@ export class PeopleController {
   ): Promise<People> {
     return this.PeopleRepository.create(People);
   }
-
+  @authorize({allowedRoles: ['ADMIN']})
   @get('/people/count')
   @response(200, {
     description: 'People model count',
@@ -107,6 +108,7 @@ export class PeopleController {
     return this.PeopleRepository.findById(id, filter);
   }
 
+  @authorize({allowedRoles: ['ADMIN']})
   @patch('/people/{id}')
   @response(204, {
     description: 'People PATCH success',
